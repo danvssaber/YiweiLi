@@ -5,21 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Yiwei Li's personal portfolio website">
     <title>Yiwei Li</title>
-    <!-- Add Google Fonts -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        /* Add these to existing CSS */
-        
-        /* Fix mobile menu styling */
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
+        /* General Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-weight: 700;
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+        }
+
+        /* Navigation Menu */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: black;
+            font-weight: 500;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Mobile Styles */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
             nav ul {
                 display: none;
                 flex-direction: column;
@@ -35,14 +93,11 @@
             nav ul.active {
                 display: flex;
             }
+        }
 
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .header-content {
-                position: relative;
-            }
+        section {
+            padding: 80px 20px;
+            min-height: 100vh;
         }
     </style>
 </head>
@@ -63,43 +118,45 @@
         </div>
     </header>
 
-    <!-- Rest of your HTML remains the same -->
+    <section id="home">Home Section Content</section>
+    <section id="about">About Section Content</section>
+    <section id="work">Work Section Content</section>
+    <section id="testimonials">Testimonials Section Content</section>
+    <section id="contact">Contact Section Content</section>
 
     <script>
-        // Improved mobile menu toggle
-        const menuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('nav ul');
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('nav ul');
 
-        menuBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            // Toggle button icon
-            this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('nav ul li a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                menuBtn.textContent = '☰';
+            menuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
             });
-        });
 
-        // Smooth scrolling (unchanged)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuBtn.textContent = '☰';
                 });
             });
-        });
 
-        // Close menu on resize above mobile breakpoint
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                navMenu.classList.remove('active');
-                menuBtn.textContent = '☰';
-            }
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navMenu.classList.remove('active');
+                    menuBtn.textContent = '☰';
+                }
+            });
         });
     </script>
 </body>
